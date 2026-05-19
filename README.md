@@ -1,203 +1,79 @@
-<div align="center">
-  
-  <h1>🚀 COLONY DEFENSE: SOLAR ASSAULT 🌌</h1>
+# 🚀 SECTOR 7 : PLANETARY DEFENSE
 
-  <p>
-    <b>Defend Sector 7. Destroy the Solar Empire. Survive.</b>
-  </p>
+> A 2D space shooter built with OpenGL (C++) and ported to HTML5 Canvas — defend the L-5 Colony across 4 planetary levels.
 
-  <p>
-    <img src="https://img.shields.io/badge/Language-C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B">
-    <img src="https://img.shields.io/badge/Graphics-OpenGL-5586A4?style=for-the-badge&logo=opengl">
-    <img src="https://img.shields.io/badge/Library-GLUT-purple?style=for-the-badge">
-  </p>
+---
 
-</div>
+## 🎮 Play (HTML5)
 
-<br>
+Open `sector7.html` in any modern browser. No install needed.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Rocket.png" alt="Rocket" width="100" height="100" />
-</div>
+| Control | Action |
+|---|---|
+| `W A S D` / Arrow Keys | Move ship |
+| `Space` | Fire |
+| `Enter` | Start / Restart |
+| `Esc` | Return to Menu |
 
-<hr>
+---
 
-<h2 align="center">🎮 HOW TO PLAY</h2>
+## 🌍 Levels
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>Action</b></td>
-      <td align="center"><b>Key</b></td>
-    </tr>
-    <tr>
-      <td align="center">Move Up</td>
-      <td align="center"><kbd>W</kbd> / <kbd>↑</kbd></td>
-    </tr>
-    <tr>
-      <td align="center">Move Down</td>
-      <td align="center"><kbd>S</kbd> / <kbd>↓</kbd></td>
-    </tr>
-    <tr>
-      <td align="center">Move Left</td>
-      <td align="center"><kbd>A</kbd> / <kbd>←</kbd></td>
-    </tr>
-    <tr>
-      <td align="center">Move Right</td>
-      <td align="center"><kbd>D</kbd> / <kbd>→</kbd></td>
-    </tr>
-    <tr>
-      <td align="center"><b>FIRE LASER</b></td>
-      <td align="center"><kbd>SPACE</kbd></td>
-    </tr>
-    <tr>
-      <td align="center">Quit Game</td>
-      <td align="center"><kbd>ESC</kbd></td>
-    </tr>
-  </table>
-</div>
+| # | Level | Enemy | Ship |
+|---|---|---|---|
+| 1 | Earth Skies | Interceptor Drone | Prototype Fighter |
+| 2 | Venus Assault | UFO Saucer | Aerospace Fighter |
+| 3 | Mercury Strike | Demon Alien | Plasma Interceptor |
+| 4 | Sun Titan Boss | Boss — Sun Titan | Haunted Solar Destroyer |
 
-<br>
+Each level has a scrolling parallax background unique to its planet.
 
-<h2 align="center">🪐 THE SOLAR EMPIRE</h2>
+---
 
-<details>
-  <summary><b>🌍 LEVEL 1: EARTH SKIES</b></summary>
-  <br>
-  <ul>
-    <li><b>Threat:</b> High-Speed Atmospheric Jets ✈️</li>
-    <li><b>Environment:</b> Blue Skies & Clouds ☁️</li>
-    <li><b>Objective:</b> Kill 5 Jets!</li>
-  </ul>
-</details>
+## 🛠️ Tech Stack
 
-<details>
-  <summary><b>☄️ LEVEL 2: VENUS ASSAULT</b></summary>
-  <br>
-  <ul>
-    <li><b>Threat:</b> Toxic UFO Drones 🛸</li>
-    <li><b>Environment:</b> Acid Green Mist 🧪</li>
-    <li><b>Objective:</b> Kill 5 UFOs!</li>
-  </ul>
-</details>
+**Original (C++ / OpenGL)**
+- Legacy OpenGL with GLUT/freeGLUT
+- `GL_POLYGON`, `GL_TRIANGLES`, `GL_QUADS` for all shapes
+- Custom `drawPolyCircle` lambda helper for repeated circle drawing
+- 60fps game loop via `glutTimerFunc`
 
-<details>
-  <summary><b>🌑 LEVEL 3: MERCURY STRIKE</b></summary>
-  <br>
-  <ul>
-    <li><b>Threat:</b> Plasma-Firing Advanced UFOs 👽</li>
-    <li><b>Environment:</b> Dark Asteroid Belt ☄️</li>
-    <li><b>Objective:</b> Kill 6 Advanced UFOs!</li>
-  </ul>
-</details>
+**HTML5 Port**
+- Canvas 2D API — zero dependencies, runs in-browser
+- `requestAnimationFrame` game loop with delta-time
+- Same coordinate system and game logic as the C++ version
 
-<details>
-  <summary><b>☀️ LEVEL 4: THE SUN TITAN (BOSS)</b></summary>
-  <br>
-  <ul>
-    <li><b>Threat:</b> Giant Molten Sun Boss 😈</li>
-    <li><b>Environment:</b> Burning Solar Flares 🔥</li>
-    <li><b>Objective:</b> Deplete 100% Boss HP!</li>
-  </ul>
-</details>
+---
 
-<br>
+## 🏗️ Project Structure
 
-<h2 align="center">🖼️ SCENERY & ENVIRONMENT</h2>
+```
+sector7/
+├── main.cpp          # Original C++ / OpenGL source
+├── sector7.html      # Self-contained HTML5 port
+└── README.md
+```
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><b>Element</b></td>
-      <td align="center"><b>Description</b></td>
-      <td align="center"><b>Levels</b></td>
-    </tr>
-    <tr>
-      <td align="center">☁️ <b>Parallax Clouds</b></td>
-      <td align="center">Moving layers of atmospheric clouds</td>
-      <td align="center">Earth</td>
-    </tr>
-    <tr>
-      <td align="center">🧪 <b>Acid Rain</b></td>
-      <td align="center">Green toxic droplets falling diagonally</td>
-      <td align="center">Venus</td>
-    </tr>
-    <tr>
-      <td align="center">☄️ <b>Asteroid Belt</b></td>
-      <td align="center">Rotating and moving space rocks</td>
-      <td align="center">Mercury</td>
-    </tr>
-    <tr>
-      <td align="center">✨ <b>Starfield</b></td>
-      <td align="center">Multi-layered moving stars for depth</td>
-      <td align="center">Sun Boss</td>
-    </tr>
-  </table>
-</div>
+---
 
-<br>
+## ⚙️ Build (C++ Version)
 
-<h2 align="center">✨ EXTENDED FEATURES</h2>
+**macOS**
+```bash
+g++ main.cpp -o sector7 -framework OpenGL -framework GLUT
+./sector7
+```
 
-<table align="center">
-  <tr>
-    <td align="center">
-      <h3>💥 Dynamic Particles</h3>
-      <i>Math-generated explosion effects!</i>
-    </td>
-    <td align="center">
-      <h3>🖥️ Retro UI</h3>
-      <i>Pixel-art side panel & D-Pad!</i>
-    </td>
-    <td align="center">
-      <h3>🛸 Unique Entities</h3>
-      <i>4 different enemy behaviors!</i>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <h3>🚨 Critical Warnings</h3>
-      <i>Flashing HUD for low Colony HP!</i>
-    </td>
-    <td align="center">
-      <h3>🌠 Deep Scenery</h3>
-      <i>Asteroids, clouds, and stars!</i>
-    </td>
-    <td align="center">
-      <h3>🎨 Vector Graphics</h3>
-      <i>Everything drawn with polygons!</i>
-    </td>
-  </tr>
-</table>
+**Linux**
+```bash
+g++ main.cpp -o sector7 -lGL -lGLU -lglut
+./sector7
+```
 
-<br>
+**Windows** — link against `freeglut` and `opengl32`.
 
-<h2 align="center">👾 MEET THE DEFENDER</h2>
+---
 
-<div align="center">
-  <pre>
-       /\
-      /  \
-     |====|
-    /______\
-   /        \
-  |   --     |
- /            \
-/______________\
-   ||      ||
-  </pre>
-  <i>Your trusty Sector 7 Fighter Ship</i>
-</div>
+## 👥 Authors
 
-<br>
-
-<div align="center">
-  <h3>🛠️ BUILT WITH MATH & MAGIC</h3>
-  <code>cos(x)</code> • <code>sin(y)</code> • <code>glBegin(GL_POLYGON)</code>
-</div>
-
-<hr>
-
-<p align="center">
-  <i>"Defend the Colony. Save Humanity."</i>
-</p>
+**Group 01 — Computer Graphics, Section F**
