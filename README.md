@@ -103,7 +103,41 @@
 
 <br>
 
-<h2 align="center">✨ FEATURES</h2>
+<h2 align="center">🖼️ SCENERY & ENVIRONMENT</h2>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><b>Element</b></td>
+      <td align="center"><b>Description</b></td>
+      <td align="center"><b>Levels</b></td>
+    </tr>
+    <tr>
+      <td align="center">☁️ <b>Parallax Clouds</b></td>
+      <td align="center">Moving layers of atmospheric clouds</td>
+      <td align="center">Earth</td>
+    </tr>
+    <tr>
+      <td align="center">🧪 <b>Acid Rain</b></td>
+      <td align="center">Green toxic droplets falling diagonally</td>
+      <td align="center">Venus</td>
+    </tr>
+    <tr>
+      <td align="center">☄️ <b>Asteroid Belt</b></td>
+      <td align="center">Rotating and moving space rocks</td>
+      <td align="center">Mercury</td>
+    </tr>
+    <tr>
+      <td align="center">✨ <b>Starfield</b></td>
+      <td align="center">Multi-layered moving stars for depth</td>
+      <td align="center">Sun Boss</td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<h2 align="center">✨ EXTENDED FEATURES</h2>
 
 <table align="center">
   <tr>
@@ -115,18 +149,45 @@
       <h3>🖥️ Retro UI</h3>
       <i>Pixel-art side panel & D-Pad!</i>
     </td>
+    <td align="center">
+      <h3>🛸 Unique Entities</h3>
+      <i>4 different enemy behaviors!</i>
+    </td>
   </tr>
   <tr>
     <td align="center">
       <h3>🚨 Critical Warnings</h3>
-      <i>Flashing HUD when Colony HP is low!</i>
+      <i>Flashing HUD for low Colony HP!</i>
     </td>
     <td align="center">
-      <h3>🌠 Parallax Scenery</h3>
-      <i>Moving stars, clouds, and meteors!</i>
+      <h3>🌠 Deep Scenery</h3>
+      <i>Asteroids, clouds, and stars!</i>
+    </td>
+    <td align="center">
+      <h3>🎨 Vector Graphics</h3>
+      <i>Everything drawn with polygons!</i>
     </td>
   </tr>
 </table>
+
+<br>
+
+<h2 align="center">👾 MEET THE DEFENDER</h2>
+
+<div align="center">
+  <pre>
+       /\
+      /  \
+     |====|
+    /______\
+   /        \
+  |   --     |
+ /            \
+/______________\
+   ||      ||
+  </pre>
+  <i>Your trusty Sector 7 Fighter Ship</i>
+</div>
 
 <br>
 
