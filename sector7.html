@@ -713,7 +713,7 @@ function drawUI() {
     if(dir===2) ctx.rotate(PI);
     if(dir===3) ctx.rotate(PI/2);
     ctx.fillStyle = rgb(ar,ag,ab);
-    ctx.fillRect(-3,-9,6,6); ctx.fillRect(-6,−3,12,4); ctx.fillRect(-3,1,6,6);
+    ctx.fillRect(-3,-9,6,6); ctx.fillRect(-6,-3,12,4); ctx.fillRect(-3,1,6,6);
     ctx.restore();
   }
   // Simple arrows
@@ -1048,7 +1048,7 @@ function update(timestamp) {
 }
 
 function drawLevelCompleteScreen() {
-  ctx.fillStyle = rgba2str(0.15,0.75,0.25);
+  ctx.fillStyle = rgb(0.15,0.75,0.25);
   ctx.font = '28px monospace'; ctx.fillStyle = rgb(0.15,0.75,0.25);
   let txt = 'LEVEL COMPLETE!';
   ctx.fillText(txt, WIN_W/2 - ctx.measureText(txt).width/2, WIN_H/2+60);
@@ -1085,11 +1085,6 @@ function drawEndScreen() {
     t='PRESS ENTER TO TRY AGAIN'; ctx.fillText(t, WIN_W/2-ctx.measureText(t).width/2, WIN_H/2-65);
   }
 }
-
-function rgba2str(r,g,b,a=1) { return `rgba(${Math.round(r*255)},${Math.round(g*255)},${Math.round(b*255)},${a})`; }
-
-// Patch: fix the "−" unicode issue in arrow function
-Math.Ctx_fillRect_safe = true;
 
 initGame();
 requestAnimationFrame(update);
