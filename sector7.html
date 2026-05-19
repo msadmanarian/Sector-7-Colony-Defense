@@ -258,85 +258,81 @@ function drawEarthBackground() {
 
 function drawVenusBackground() {
   const t = gameTime;
-  // Sky gradient
-  const grad = ctx.createLinearGradient(GX0, WIN_H, WIN_W, 0);
-  grad.addColorStop(0, rgb(0.55, 0.12, 0.35));
-  grad.addColorStop(1, rgb(0.19, 0.08, 0.25));
+  // Sky gradient: dark purple top -> magenta bottom
+  const grad = ctx.createLinearGradient(GX0, 0, GX0, WIN_H);
+  grad.addColorStop(0, rgb(0.19, 0.08, 0.25));
+  grad.addColorStop(1, rgb(0.55, 0.12, 0.35));
   ctx.fillStyle = grad;
   ctx.fillRect(GX0, 0, WIN_W-GX0, WIN_H);
 
-  // Stars
+  // Stars in upper sky
   for (let i = 0; i < 20; i++) {
     const sx = WIN_W - ((i * 87 + t * 30) % (WIN_W-GX0));
-    const sy = 250 + (i * 123 % (WIN_H-250));
+    const sy = 20 + (i * 123 % (WIN_H * 0.45));
     const pulse = 0.5 + 0.5 * Math.sin(t * 3 + i);
     ctx.fillStyle = rgb(1.0, 0.8, 0.9, pulse);
     ctx.beginPath(); ctx.arc(sx, sy, 2, 0, 2*PI); ctx.fill();
   }
 
   // Giant planet top-left
-  const pX = GX0+150, pY = WIN_H-120, pR = 80;
+  const pX = GX0+150, pY = 120, pR = 80;
   fillCircle(pX, pY, pR*1.4, 0.85, 0.4, 0.6, 0.15);
   fillCircle(pX, pY, pR, 0.85, 0.4, 0.6, 0.9);
-
-  // Planet ring
   ctx.save(); ctx.translate(pX, pY); ctx.rotate(20*PI/180);
   ctx.strokeStyle = rgb(0.9, 0.6, 0.7, 0.8); ctx.lineWidth = 4;
   ctx.beginPath(); ctx.ellipse(0, 0, 160, 25, 0, 0, 2*PI); ctx.stroke();
   ctx.restore();
 
-  // Mountains scrolling
+  // Mountains: base at bottom, peaks pointing UP (peakY = baseY - h)
   const scrollSlow = (t * 15) % 300, scrollFast = (t * 30) % 400;
-  function drawMountain(x, y, w, h) {
-    // Shadow
-    ctx.fillStyle = rgb(0.07, 0.03, 0.15);
-    poly([[x, y],[x+w*0.2, y+h],[x+w*0.6, y]], rgb(0.07,0.03,0.15));
-    // Lit
-    ctx.fillStyle = rgb(0.85, 0.16, 0.41);
-    poly([[x-w*0.5, y],[x+w*0.2, y+h],[x, y]], rgb(0.85,0.16,0.41));
+  function drawMountain(x, baseY, w, h) {
+    const peakY = baseY - h;
+    poly([[x, baseY],[x+w*0.2, peakY],[x+w*0.6, baseY]], rgb(0.07,0.03,0.15));
+    poly([[x-w*0.5, baseY],[x+w*0.2, peakY],[x, baseY]], rgb(0.85,0.16,0.41));
   }
-  for (let i = -2; i < 5; i++) drawMountain(GX0 + i*300 - scrollSlow, 100, 350, 250);
-  for (let i = -2; i < 4; i++) drawMountain(GX0 + i*400 - scrollFast, 60, 450, 350);
+  for (let i = -2; i < 5; i++) drawMountain(GX0 + i*300 - scrollSlow, WIN_H-100, 350, 250);
+  for (let i = -2; i < 4; i++) drawMountain(GX0 + i*400 - scrollFast, WIN_H-60,  450, 350);
 
-  // Dunes
-  function drawDune(baseY, amp, freq, speed, topR,topG,topB, botR,botG,botB) {
-    const grad2 = ctx.createLinearGradient(0, baseY+amp, 0, 0);
+  // Dunes: crest near bottom, fill downward to WIN_H
+  function drawDune(baseY, amp, freq, speed, topR,topG,topB) {
+    const grad2 = ctx.createLinearGradient(0, baseY-amp, 0, WIN_H);
     grad2.addColorStop(0, rgb(topR,topG,topB));
-    grad2.addColorStop(1, rgb(botR,botG,botB));
+    grad2.addColorStop(1, rgb(0.02, 0.01, 0.05));
     ctx.fillStyle = grad2;
     ctx.beginPath();
-    ctx.moveTo(GX0, 0);
+    ctx.moveTo(GX0, WIN_H);
     for (let x = GX0; x <= WIN_W+40; x += 20) {
-      const y = baseY + Math.sin(x * freq + t * speed) * amp;
-      ctx.lineTo(x, y);
+      ctx.lineTo(x, baseY + Math.sin(x * freq + t * speed) * amp);
     }
-    ctx.lineTo(WIN_W+40, 0); ctx.closePath(); ctx.fill();
+    ctx.lineTo(WIN_W+40, WIN_H); ctx.closePath(); ctx.fill();
   }
-  drawDune(80, 25, 0.015, 1.5, 0.55,0.05,0.35, 0.07,0.03,0.15);
-  drawDune(45, 15, 0.02,  2.5, 0.80,0.10,0.40, 0.05,0.02,0.10);
-  drawDune(15, 10, 0.012, 3.5, 0.95,0.20,0.50, 0.02,0.01,0.05);
+  drawDune(WIN_H-80, 25, 0.015, 1.5, 0.55,0.05,0.35);
+  drawDune(WIN_H-45, 15, 0.02,  2.5, 0.80,0.10,0.40);
+  drawDune(WIN_H-15, 10, 0.012, 3.5, 0.95,0.20,0.50);
 }
 
 function drawMercuryBackground() {
   const t = gameTime;
-  // Sky gradient
-  const grad = ctx.createLinearGradient(GX0, WIN_H, WIN_W, 0);
-  grad.addColorStop(0, rgb(0.10, 0.25, 0.35));
-  grad.addColorStop(1, rgb(0.02, 0.08, 0.15));
+  // Sky gradient: near-black at top -> dark blue at bottom
+  const grad = ctx.createLinearGradient(GX0, 0, GX0, WIN_H);
+  grad.addColorStop(0, rgb(0.02, 0.08, 0.15));
+  grad.addColorStop(1, rgb(0.10, 0.25, 0.35));
   ctx.fillStyle = grad;
   ctx.fillRect(GX0, 0, WIN_W-GX0, WIN_H);
 
-  // Stars
+  // Stars scattered across upper sky
   for (let i = 0; i < 60; i++) {
     const alpha = 0.3 + 0.7 * Math.sin(t*2 + i);
     ctx.fillStyle = rgb(0.8, 0.9, 1.0, alpha);
-    ctx.beginPath(); ctx.arc(GX0 + pseudoRandom(i)*(WIN_W-GX0), WIN_H*0.3 + pseudoRandom(i+100)*(WIN_H*0.7), 1.5, 0, 2*PI); ctx.fill();
+    ctx.beginPath();
+    ctx.arc(GX0 + pseudoRandom(i)*(WIN_W-GX0), pseudoRandom(i+100)*WIN_H*0.65, 1.5, 0, 2*PI);
+    ctx.fill();
   }
 
-  // Giant ice planet
-  const pX = GX0+320, pY = WIN_H/2+30, pR = 120;
+  // Giant ice planet (upper half of screen)
+  const pX = GX0+320, pY = WIN_H/2-30, pR = 120;
   fillCircle(pX, pY, pR, 0.05, 0.15, 0.25, 1.0);
-  // Crescent
+  // Crescent highlight
   ctx.fillStyle = rgb(0.2, 0.5, 0.7, 0.8);
   ctx.beginPath();
   for (let i = 90; i <= 270; i++) ctx.lineTo(pX + Math.cos(i*PI/180)*pR, pY + Math.sin(i*PI/180)*pR);
@@ -350,25 +346,26 @@ function drawMercuryBackground() {
   ctx.beginPath(); ctx.ellipse(0, 0, 260, 45, 0, 0, 2*PI); ctx.stroke();
   ctx.restore();
 
-  // Icy dunes
+  // Icy dunes: crest near bottom, fill DOWN to WIN_H
   function drawDune(baseY, amp, freq, topR,topG,topB) {
-    const grad2 = ctx.createLinearGradient(0, baseY+amp, 0, 0);
+    const grad2 = ctx.createLinearGradient(0, baseY-amp, 0, WIN_H);
     grad2.addColorStop(0, rgb(topR,topG,topB));
     grad2.addColorStop(1, rgb(0.02, 0.05, 0.10));
     ctx.fillStyle = grad2;
-    ctx.beginPath(); ctx.moveTo(GX0, 0);
+    ctx.beginPath();
+    ctx.moveTo(GX0, WIN_H);
     for (let x = GX0; x <= WIN_W+40; x += 20) ctx.lineTo(x, baseY + Math.sin(x*freq)*amp);
-    ctx.lineTo(WIN_W+40, 0); ctx.closePath(); ctx.fill();
+    ctx.lineTo(WIN_W+40, WIN_H); ctx.closePath(); ctx.fill();
   }
-  drawDune(120, 25, 0.01, 0.2, 0.35, 0.5);
-  drawDune(80,  15, 0.015, 0.4, 0.6, 0.75);
-  drawDune(40,  10, 0.008, 0.6, 0.75, 0.85);
+  drawDune(WIN_H-120, 25, 0.01,  0.2, 0.35, 0.5);
+  drawDune(WIN_H-80,  15, 0.015, 0.4, 0.6,  0.75);
+  drawDune(WIN_H-40,  10, 0.008, 0.6, 0.75, 0.85);
 
-  // Meteors
-  const gW = WIN_W - GX0, gH = WIN_H;
+  // Floating meteors in background
+  const gW = WIN_W - GX0;
   for (const m of meteors) {
     const sx = GX0 + (m.x + 1.5) / 3.0 * gW;
-    const sy = (m.y + 1.0) / 2.0 * gH;
+    const sy = (m.y + 1.0) / 2.0 * WIN_H;
     const sr = m.size * gW / 3.0;
     ctx.save(); ctx.translate(sx, sy); ctx.rotate(m.rot*PI/180);
     ctx.fillStyle = rgb(0.22, 0.2, 0.18);
@@ -382,10 +379,10 @@ function drawMercuryBackground() {
     ctx.closePath(); ctx.fill(); ctx.restore();
   }
 
-  // Mercury planet
-  const mpX = GX0 + (0.6+1.5)/3.0 * (WIN_W-GX0);
-  const mpY = (-(-0.2)+1.0)/2.0 * WIN_H;
-  const mpR = 0.44 * (WIN_W-GX0) / 3.0;
+  // Mercury planet surface (bottom-right area)
+  const mpX = GX0 + 0.7 * gW;
+  const mpY = WIN_H * 0.55;
+  const mpR = 0.44 * gW / 3.0;
   const lgr = ctx.createRadialGradient(mpX-mpR*0.3, mpY-mpR*0.3, 0, mpX, mpY, mpR);
   lgr.addColorStop(0, rgb(0.5,0.48,0.44));
   lgr.addColorStop(1, rgb(0.12,0.11,0.10));
